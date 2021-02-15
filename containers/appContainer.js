@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Filters from './filters';
+
 import Header from '../components/header';
 
 import logo from '../images/icons/logo-white.svg';
@@ -40,13 +42,14 @@ const styles = ({
 const AppContainer = (props) => {
 	return (
 		<div style={styles.container}>
-			<Header>
+			<Header >
 				<div style={styles.text_container}>
 					<img style={styles.logo} src={logo} alt="greenthumb" />
 					<h1 style={styles.text}>Find your next green friend</h1>
 					<img style={styles.arrow} src={arrow_down} />
 				</div>
 			</Header>
+			<Filters />
 		</div>
 	)
 }
