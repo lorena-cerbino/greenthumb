@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Filters from './filters';
+import Results from './results';
 
 import Header from '../components/header';
 
@@ -50,6 +51,7 @@ const AppContainer = (props) => {
 				</div>
 			</Header>
 			<Filters />
+			<Results />
 		</div>
 	)
 }

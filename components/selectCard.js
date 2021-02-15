@@ -11,7 +11,8 @@ const styles = ({
 	},
 	icon: {
 		width: 'auto',
-		height: '75px',//'min(max(5vw, 45px), 75px)',
+		// maxWidth: '75px',
+		height: 'min(max(5vw, 60px), 65px)',
 		objectFit: 'contain',
 		marginBottom: 10,
 	},
@@ -19,7 +20,7 @@ const styles = ({
 		fontFamily: 'Montserrat',
 		color: '#a8a8a8',
 		minHeight: '120px',
-		fontSize: 26,
+		fontSize: 'min(max(1.2vw, 22px), 28px)',
 	},
 });
 

@@ -13,12 +13,14 @@ const styles = ({
 		alignItems: 'center',
 		padding: 10,
 		flexWrap: 'wrap',
-		'@media only screen and (maxWidth: 1000)': {
-			flexDirection: 'column',
-		}
 	},
 	card: {
-		margin: 'min(max(4vw, 10px), 50px)',
+		margin: 'min(max(4vw, 10px), 50px) 30px',
+		maxWidth: '300px',
+	},
+	card_mobile: {
+		margin: 'min(max(4vw, 10px), 50px) 30px',
+		minWidth: '70vw',
 	},
 });
 
@@ -64,7 +66,7 @@ class Filters extends Component {
 						option={option}
 						value={this.state[option.id]}
 						handleChange={(value) => this.setState({ [option.id]: value })}
-						style={styles.card}
+						style={mobile? styles.card_mobile : styles.card}
 					>
 					</SelectCard>
 				)}
