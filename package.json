@@ -9,9 +9,10 @@
   "dependencies": {
     "parcel": "1.12.4",
     "prop-types": "^15.7.2",
-    "react": "^17.0.1",
+    "react": "^16.0.0",
     "react-dom": "^17.0.1",
-    "react-dropdown-select": "^4.7.3"
+    "react-dropdown-select": "^4.7.3",
+    "react-responsive-masonry": "^2.1.1"
   },
   "devDependencies": {
     "babel-preset-env": "^1.7.0",

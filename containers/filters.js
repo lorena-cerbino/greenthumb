@@ -10,12 +10,18 @@ const styles = ({
 	container: {
 		display: 'flex',
 		justifyContent: 'center',
+		width: '100%',
+	},
+	inner_container: {
+		display: 'flex',
+		justifyContent: 'space-around',
 		alignItems: 'center',
 		padding: 10,
+		width: '75%',
 		flexWrap: 'wrap',
 	},
 	card: {
-		margin: 'min(max(4vw, 10px), 50px) 30px',
+		// margin: 'min(max(4vw, 10px), 50px) 30px',
 		maxWidth: '300px',
 	},
 	card_mobile: {
@@ -56,20 +62,22 @@ class Filters extends Component {
 	}
 
 	render() {
-		let { mobile } = this.props;
+		let { mobile, values, handleChange } = this.props;
 		return (
 			<div style={styles.container}>
-				{options.map(option => 
-					<SelectCard
-						mobile
-						key={option.id}
-						option={option}
-						value={this.state[option.id]}
-						handleChange={(value) => this.setState({ [option.id]: value })}
-						style={mobile? styles.card_mobile : styles.card}
-					>
-					</SelectCard>
-				)}
+				<div style={styles.inner_container}>
+					{options.map(option => 
+						<SelectCard
+							mobile
+							key={option.id}
+							option={option}
+							value={values[option.id]}
+							handleChange={(value) => handleChange({ [option.id]: value })}
+							style={mobile? styles.card_mobile : styles.card}
+						>
+						</SelectCard>
+					)}
+				</div>
 			</div>
 		)
 	}

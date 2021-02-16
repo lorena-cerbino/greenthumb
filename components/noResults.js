@@ -38,8 +38,9 @@ const styles = ({
 });
 
 const NoResults = (props) => {
+	let { style } = props;
 	return (
-		<div style={styles.container}>
+		<div style={{ ...styles.container, ...style }}>
 			<div style={styles.text_container}>
 				<h1 style={styles.title}>No results yet...</h1>
 				<p style={styles.text}>

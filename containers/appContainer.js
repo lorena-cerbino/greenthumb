@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import Filters from './filters';
 import Results from './results';
@@ -40,20 +40,67 @@ const styles = ({
 	},
 });
 
-const AppContainer = (props) => {
-	return (
-		<div style={styles.container}>
-			<Header >
-				<div style={styles.text_container}>
-					<img style={styles.logo} src={logo} alt="greenthumb" />
-					<h1 style={styles.text}>Find your next green friend</h1>
-					<img style={styles.arrow} src={arrow_down} />
-				</div>
-			</Header>
-			<Filters />
-			<Results />
-		</div>
-	)
+const initialState = {
+	filters: {
+		sunlight: '',
+		water: '',
+		pets: '',
+	},
+	response: [],
+};
+
+class AppContainer extends Component {
+	constructor(props) {
+		super(props);
+		this.state = initialState;
+	}
+
+	filter = () => {
+		if (
+			Object.values(this.state.filters).filter(item => item !== '').length === 3
+		) {
+			fetch(
+				`https://front-br-challenges.web.app/api/v2/green-thumb/?sun=${
+					this.state.filters.sunlight.split(' ')[0].toLowerCase()
+				}&water=${
+					this.state.filters.water.toLowerCase()
+				}&pets=${
+					this.state.filters.pets.split('/')[0].toLowerCase() === 'no' ? false : true
+				}`
+			)
+			.then(snapshot => snapshot.json())
+			.then(response => this.setState({ response: response }))
+			.catch(err => {
+				alert('Erro ao tentar obter recomendações, tente novamente!')
+				console.log(err);
+				this.setState(initialState);
+			})
+		}
+	};
+
+	render() {
+		return (
+			<div style={styles.container}>
+				<Header >
+					<div style={styles.text_container}>
+						<img style={styles.logo} src={logo} alt="greenthumb" />
+						<h1 style={styles.text}>Find your next green friend</h1>
+						<img style={styles.arrow} src={arrow_down} />
+					</div>
+				</Header>
+				<Filters
+					values={this.state.filters}
+					handleChange={(value) =>
+						this.setState(
+							{ filters: { ...this.state.filters, ...value } },
+							() => this.filter()
+						)
+					}
+				/>
+				<Results results={this.state.response} />
+			</div>
+		)
+	}
 }
 
 export default AppContainer;
