@@ -55,6 +55,10 @@ class AppContainer extends Component {
 		this.state = initialState;
 	}
 
+	componentWillMount = () => {
+		
+	};
+
 	filter = () => {
 		if (
 			Object.values(this.state.filters).filter(item => item !== '').length === 3
@@ -79,9 +83,15 @@ class AppContainer extends Component {
 	};
 
 	render() {
+		let mobile = false;
+		if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+			mobile = true;
+		}else{
+			mobile = false;
+		}
 		return (
 			<div style={styles.container}>
-				<Header >
+				<Header mobile={mobile}>
 					<div style={styles.text_container}>
 						<img style={styles.logo} src={logo} alt="greenthumb" />
 						<h1 style={styles.text}>Find your next green friend</h1>
@@ -89,6 +99,7 @@ class AppContainer extends Component {
 					</div>
 				</Header>
 				<Filters
+					mobile={mobile}
 					values={this.state.filters}
 					handleChange={(value) =>
 						this.setState(
@@ -97,7 +108,7 @@ class AppContainer extends Component {
 						)
 					}
 				/>
-				<Results results={this.state.response} />
+				<Results mobile={mobile} results={this.state.response} />
 			</div>
 		)
 	}

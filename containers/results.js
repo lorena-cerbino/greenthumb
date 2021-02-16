@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
+import Carousel from 'react-elastic-carousel';
 
 import NoResults from '../components/noResults';
 import Pick from '../components/pick';
@@ -47,7 +48,7 @@ const styles = ({
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
-		margin: 50,
+		marginTop: 50,
 		outline: 'none',
 	},
 	hover: {
@@ -70,6 +71,21 @@ class Results extends Component {
 		}
 	}
 
+	renderCarousel = (results) => {
+		let results_component = results.filter(item => item.staff_favorite === true);
+		results_component = results_component.concat(results.filter(item => item.staff_favorite === false));
+
+		return results.length !== 0 && (
+			<div style={styles.results_container} >
+				<Carousel >
+					{results_component.map(item => 
+						<Pick key={item.id} value={item} mobile />
+					)}
+				</Carousel>
+			</div>
+		)
+	}
+
 	renderMasonry = (results) => {
 		let results_component = results.filter(item => item.staff_favorite === true);
 		results_component = results_component.concat(results.filter(item => item.staff_favorite === false));
@@ -90,7 +106,7 @@ class Results extends Component {
 	}
 
 	render() {
-		let { results } = this.props;
+		let { results, mobile } = this.props;
 		let { hover } = this.state;
 		
 		return (
@@ -99,7 +115,7 @@ class Results extends Component {
 					<div style={styles.picks}>
 						<img style={styles.img_pick} src={pick} alt="pick" />
 						<h1 style={styles.title}>Our picks for you</h1>
-						{this.renderMasonry(results)}
+						{mobile ? this.renderCarousel(results) : this.renderMasonry(results)}
 						<button
 							style={
 								hover === true
@@ -107,8 +123,11 @@ class Results extends Component {
 									: styles.button
 							}
 							type="button"
+							onTouchStart={() => this.setState({ hover: true })}
+							onTouchEnd={() => this.setState({ hover: false })}
 							onMouseOver={() => this.setState({ hover: true })}
 							onMouseOut={() => this.setState({ hover: false })}
+							onMouseUp={() => this.setState({ hover: false })}
 							onClick={() => {
 								document.body.scrollTo({ top: 0, behavior: 'smooth' });
 								document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });

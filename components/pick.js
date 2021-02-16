@@ -23,11 +23,11 @@ const styles = ({
 	img_favorite: {
 		width: 'auto',
 		maxWidth: '340px',
-		height: '400px',
+		height: '(min(max(20vw, 200px), 400px)',
 	},
 	img: {
 		width: 'auto',
-		maxWidth: '200px',
+		maxWidth: '240px',
 		height: '160px',
 	},
 	staff_fav: {
@@ -36,7 +36,7 @@ const styles = ({
 		maxHeight: '45px',
 		width: 'auto',
 		minWidth: '190px',
-		marginRight: '-49%',
+		marginRight: '-51%',
 		marginTop: '30px',
 		display: 'flex',
 		alignItems: 'center',
@@ -120,35 +120,36 @@ const styles = ({
 });
 
 const Pick = (props) => {
-	let { value } = props;
+	let { value, mobile } = props;
+	let fav = value.staff_favorite;
 	return (
 		<div
 			style={
-				value.staff_favorite
+				fav
 					? styles.favorite
 					: styles.inner_container
 			}
 		>
-			{value.staff_favorite && 
+			{fav && 
 				<div style={styles.staff_fav}>
 					✨ Staff favorite
 				</div>
 			}
 			<div style={styles.image}>
 				<img
-					style={value.staff_favorite ? styles.img_favorite : styles.img}
+					style={fav && mobile !== true ? styles.img_favorite : styles.img}
 					src={value.url}
 					alt={value.name}
 				/>
-				<div style={value.staff_favorite ? styles.description_fav : styles.description}>
-					<h2 style={value.staff_favorite ? styles.title_fav : styles.title}>
+				<div style={fav ? styles.description_fav : styles.description}>
+					<h2 style={fav ? styles.title_fav : styles.title}>
 						{value.name}
 					</h2>
-					<div style={value.staff_favorite ? styles.stats_fav : styles.stats}>
-						<h2 style={value.staff_favorite ? styles.value_fav : styles.value}>
+					<div style={fav ? styles.stats_fav : styles.stats}>
+						<h2 style={fav ? styles.value_fav : styles.value}>
 							${value.price}
 						</h2>
-						<div style={value.staff_favorite ? styles.icons_fav : styles.icons}>
+						<div style={fav ? styles.icons_fav : styles.icons}>
 							<img
 								src={
 									value.toxicity === true ? toxic : pet
