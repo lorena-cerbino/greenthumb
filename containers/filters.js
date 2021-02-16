@@ -11,6 +11,8 @@ const styles = ({
 		display: 'flex',
 		justifyContent: 'center',
 		width: '100%',
+		marginBottom: 40,
+		marginTop: 20,
 	},
 	inner_container: {
 		display: 'flex',
